@@ -379,7 +379,7 @@
     const t=setInterval(()=>{p+=Math.random()*7+2;if(p>92)p=92;bar.style.width=p+'%';ptxt.textContent=curSteps[Math.min(curSteps.length-1,Math.floor(p/24))]},420);
     try{
       const lic=(function(){try{return localStorage.getItem('license')||''}catch(e){return ''}})();
-      const r=await fetch(API_BASE+'/api/translate',{method:'POST',headers:{'x-filename':currentFile.name,'x-target':$('to').value,'x-source':$('from').value,'x-license':lic},body:currentFile});
+      const r=await fetch(API_BASE+'/api/translate',{method:'POST',headers:{'x-filename':encodeURIComponent(currentFile.name),'x-target':encodeURIComponent($('to').value),'x-source':encodeURIComponent($('from').value),'x-license':lic},body:currentFile});
       if(!r.ok){let m='Translation failed';try{m=(await r.json()).error||m}catch(e){}throw new Error(m)}
       outBlob=await r.blob();
       const cd=r.headers.get('Content-Disposition')||'';const mm=cd.match(/filename\*?=(?:UTF-8'')?"?([^";]+)/i);
