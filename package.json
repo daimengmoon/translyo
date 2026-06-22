@@ -1,0 +1,10 @@
+{
+  "name": "translyo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Translate documents while keeping the formatting.",
+  "dependencies": {
+    "fflate": "^0.8.2"
+  }
+}
