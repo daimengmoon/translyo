@@ -12,9 +12,10 @@ export async function onRequestPost({ request, env }) {
   const model = env.ARK_MODEL || "doubao-seed-2-0-lite";
   if (!apiKey) return json({ error: "Server not configured: missing ARK_API_KEY" }, 500);
 
-  const filename = request.headers.get("x-filename") || "document";
-  const target = request.headers.get("x-target") || "English";
-  const source = request.headers.get("x-source") || "auto";
+  const dec = (v, d) => { try { return v ? decodeURIComponent(v) : d; } catch (e) { return v || d; } };
+  const filename = dec(request.headers.get("x-filename"), "document");
+  const target = dec(request.headers.get("x-target"), "English");
+  const source = dec(request.headers.get("x-source"), "auto");
   const license = request.headers.get("x-license") || "";
 
   try {
